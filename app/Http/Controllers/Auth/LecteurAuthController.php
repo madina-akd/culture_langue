@@ -36,7 +36,7 @@ class LecteurAuthController extends Controller
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'email' => $request->email,
-            'mot_de_passe' => Hash::make($request->mot_de_passe),
+            'mot_de_passe' => $request->mot_de_passe, // Le mutator hash automatiquement
             'id_role' => 5,
             'id_langue' => 2,
             'sexe' => $request->sexe,
@@ -60,29 +60,45 @@ class LecteurAuthController extends Controller
     }
 
     /**
-     * Traiter la connexion lecteur
+     * Traiter la connexion lecteur - VERSION CORRIGÉE
      */
-   public function login(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
             'mot_de_passe' => 'required',
         ]);
-    
+
+        // Chercher l'utilisateur avec email et rôle 5
         $lecteur = Utilisateur::where('email', $request->email)
                             ->where('id_role', 5)
                             ->first();
-    
-        if (!$lecteur || !Hash::check($request->mot_de_passe, $lecteur->mot_de_passe)) {
+
+        // Vérifier si l'utilisateur existe
+        if (!$lecteur) {
             return back()->withErrors([
-                'email' => 'Identifiants incorrects ou vous n\'êtes pas inscrit en tant que lecteur.',
-            ]);
+                'email' => 'Aucun compte lecteur trouvé avec cet email.',
+            ])->withInput();
         }
-    
+
+        // Vérifier le mot de passe en utilisant la méthode d'authentification de Laravel
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->mot_de_passe, // Note: Laravel attend 'password' comme clé
+            'id_role' => 5 // Vérification supplémentaire du rôle
+        ];
+
+        // OU utiliser la vérification manuelle :
+        if (!Hash::check($request->mot_de_passe, $lecteur->mot_de_passe)) {
+            return back()->withErrors([
+                'mot_de_passe' => 'Mot de passe incorrect.',
+            ])->withInput();
+        }
+
         // Connexion manuelle
         Auth::guard('web')->login($lecteur);
         $request->session()->regenerate();
-    
+
         return redirect()->route('index')->with('success', 'Connexion réussie !');
     }
 
