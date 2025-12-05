@@ -20,6 +20,9 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
+RUN php artisan config:clear
+RUN php artisan cache:clear
+
 # Exposer le port 8080 pour Railway
 EXPOSE 8080
 
