@@ -62,7 +62,7 @@ class LoginController extends Controller
 
         // Gestion des rôles
         $adminRoles = [3, 6]; // Admin (3) et Manager (6)
-        $authorRole = 1; // Auteur
+       
 
         // Vérifier si l'utilisateur est admin/manager
         if (in_array($user->id_role, $adminRoles)) {
@@ -84,15 +84,7 @@ class LoginController extends Controller
             return redirect()->route('twofactor.form');
         }
         
-        // Vérifier si l'utilisateur est auteur
-        if ($user->id_role == $authorRole) {
-            Log::info('Utilisateur auteur détecté', [
-                'email' => $user->email,
-                'role' => $user->id_role
-            ]);
-            Auth::login($user);
-            return redirect()->route('auteur.dashboard');
-        }
+       
 
         // Autres rôles (lecteurs, etc.)
         if ($user->id_role == 5) { // Exemple: rôle lecteur
