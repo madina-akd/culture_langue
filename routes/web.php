@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 Route::get('/rename-table', function () {
     try {
         // Ancien nom de la table
-        $oldName = 'TypeMedia';
+        $oldName = 'Roles';
         // Nouveau nom de la table
-        $newName = 'typemedia';
+        $newName = 'roles';
 
         // Renommer la table
         DB::statement("RENAME TABLE `$oldName` TO `$newName`");
