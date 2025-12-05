@@ -241,7 +241,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Panolens 360
     const panoramaContainer = document.getElementById('panorama-360');
     if(panoramaContainer) {
-        const panorama = new PANOLENS.ImagePanorama("{{ asset('assets/images/360/benin360.jpg') }}");
+        const panorama = new PANOLENS.ImagePanorama("https://culture-benin-production.up.railway.app/assets/images/360/benin360.jpg");
+
         const viewer = new PANOLENS.Viewer({ container: panoramaContainer, output: 'console', autoHideInfospot: false });
         viewer.add(panorama);
     }
