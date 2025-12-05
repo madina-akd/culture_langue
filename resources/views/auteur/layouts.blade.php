@@ -454,7 +454,7 @@ body {
         <!--begin::Sidebar Brand-->
          <div class="sidebar-brand">
           <!--begin::Brand Link-->
-          <a href="{{route('dash')}}" class="brand-link">
+          <a href="{{route('auteur.dashboard')}}" class="brand-link">
             <!--begin::Brand Image-->
             <img
               src="{{asset('assets/images/icon.png')}}"
