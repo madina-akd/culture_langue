@@ -95,9 +95,7 @@ class AuteurAuthController extends Controller
             ])->withInput();
         }
 
-        // Connexion manuelle
-        Auth::guard('auteur')->login($auteur);
-        $request->session()->regenerate();
+     
 
         return redirect()->route('auteur.dashboard')->with('success', 'Connexion réussie !');
     }
