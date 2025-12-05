@@ -18,7 +18,7 @@ class ContenuController extends Controller
     public function index()
     {
         $contenus = Contenu::with(['langue','type','region','auteur','moderateur','parent'])->get();
-        return view('contenu.index', compact('contenus'));
+        return view('contenu.Index', compact('contenus'));
     }
 
     /**
