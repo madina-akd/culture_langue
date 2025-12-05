@@ -1,0 +1,74 @@
+@extends('admin.layouts.app')
+@section('content')
+
+<div class="max-w-4xl mx-auto mt-10">
+    <div class="bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
+
+        <h3 class="text-2xl font-bold text-green-600 mb-2">Modifier Région</h3>
+        <p class="text-gray-500 mb-6">Modifiez les informations de la région.</p>
+
+        @if ($errors->any())
+            <div class="mb-4 p-4 rounded bg-red-100 text-red-700">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('regions.update', $region->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            @php
+                $inputClass = "w-full px-4 py-2 rounded-xl border border-gray-300 bg-white
+                               focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
+                               hover:border-green-400 transition text-gray-700 placeholder-gray-400";
+            @endphp
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Nom Région -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Nom de la Région</label>
+                    <input type="text" name="nom_region" class="{{ $inputClass }}" value="{{ old('nom_region', $region->nom_region) }}" required>
+                </div>
+
+                <!-- Description -->
+                <div class="md:col-span-2">
+                    <label class="block font-semibold text-gray-700 mb-1">Description</label>
+                    <textarea name="description" rows="4" class="{{ $inputClass }}" required>{{ old('description', $region->description) }}</textarea>
+                </div>
+
+                <!-- Population -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Population</label>
+                    <input type="number" name="population" class="{{ $inputClass }}" value="{{ old('population', $region->population) }}" required>
+                </div>
+
+                <!-- Superficie -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Superficie</label>
+                    <input type="number" name="superficie" class="{{ $inputClass }}" value="{{ old('superficie', $region->superficie) }}" required>
+                </div>
+
+                <!-- Localisation -->
+                <div class="md:col-span-2">
+                    <label class="block font-semibold text-gray-700 mb-1">Localisation</label>
+                    <input type="text" name="localisation" class="{{ $inputClass }}" value="{{ old('localisation', $region->localisation) }}" required>
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-end space-x-3 mt-8">
+                <a href="{{ route('regions.index') }}" class="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold transition">Annuler</a>
+                <button type="submit" class="px-6 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold shadow">Mettre à jour</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@endsection

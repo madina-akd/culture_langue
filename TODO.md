@@ -1,0 +1,7 @@
+- [x] Modifier le sous-menu desktop pour utiliser un clic au lieu du survol, avec un script JS pour gérer l'ouverture/fermeture.
+- [x] Améliorer la section authentification dans le menu mobile : ajouter une section dédiée pour l'utilisateur connecté avec des liens directs.
+- [x] Assurer une meilleure responsivité en ajustant les classes Tailwind pour les petits écrans.
+- [x] Tester l'ouverture/fermeture du sous-menu desktop.
+- [x] Vérifier l'affichage mobile de la section authentification.
+- [x] Corriger les erreurs JavaScript "editComment is not defined" en déplaçant les scripts inline dans les vues au lieu d'utiliser @push('scripts').
+- [x] Rendre fonctionnelle la section d'authentification du lecteur avec son profil et ses commentaires.

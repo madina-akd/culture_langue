@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Region extends Model
+{
+     protected $table = 'région'; // nom de la table
+    protected $primaryKey = 'id'; // clé primaire si différente de 'id'
+    public $timestamps = true; // si tu utilises created_at et updated_at
+
+    protected $fillable = [
+        'nom_region',
+        'description',
+        'population',
+        'superficie',
+        'localisation', // nom du rôle
+    ];
+
+    // Relation : un rôle a plusieurs utilisateurs
+    public function contenu()
+    {
+        return $this->hasMany(Contenu::class, 'id');
+    }
+   
+    //
+}
