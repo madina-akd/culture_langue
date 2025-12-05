@@ -62,46 +62,47 @@ class LecteurAuthController extends Controller
     /**
      * Traiter la connexion lecteur - VERSION CORRIGÉE
      */
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'mot_de_passe' => 'required',
-        ]);
+  public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'mot_de_passe' => 'required',
+    ]);
 
-        // Chercher l'utilisateur avec email et rôle 5
-        $lecteur = Utilisateur::where('email', $request->email)
-                            ->where('id_role', 5)
-                            ->first();
+    // Préparer les credentials
+    $credentials = [
+        'email' => $request->email,
+        'password' => $request->mot_de_passe,
+    ];
 
-        // Vérifier si l'utilisateur existe
-        if (!$lecteur) {
-            return back()->withErrors([
-                'email' => 'Aucun compte lecteur trouvé avec cet email.',
-            ])->withInput();
-        }
+    // Ajouter une condition pour vérifier le rôle
+    $credentials['id_role'] = 5;
 
-        // Vérifier le mot de passe en utilisant la méthode d'authentification de Laravel
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->mot_de_passe, // Note: Laravel attend 'password' comme clé
-            'id_role' => 5 // Vérification supplémentaire du rôle
-        ];
-
-        // OU utiliser la vérification manuelle :
-        if (!Hash::check($request->mot_de_passe, $lecteur->mot_de_passe)) {
-            return back()->withErrors([
-                'mot_de_passe' => 'Mot de passe incorrect.',
-            ])->withInput();
-        }
-
-        // Connexion manuelle
-        Auth::guard('web')->login($lecteur);
+    // Tenter la connexion avec le guard web
+    if (Auth::guard('web')->attempt($credentials)) {
         $request->session()->regenerate();
-
         return redirect()->route('index')->with('success', 'Connexion réussie !');
     }
 
+    // Si échec, vérifier pourquoi
+    $lecteur = Utilisateur::where('email', $request->email)->first();
+    
+    if (!$lecteur) {
+        return back()->withErrors([
+            'email' => 'Aucun compte trouvé avec cet email.',
+        ])->withInput();
+    }
+    
+    if ($lecteur->id_role != 5) {
+        return back()->withErrors([
+            'email' => 'Ce compte n\'est pas un compte lecteur.',
+        ])->withInput();
+    }
+
+    return back()->withErrors([
+        'mot_de_passe' => 'Mot de passe incorrect.',
+    ])->withInput();
+}
     /**
      * Déconnexion lecteur
      */
