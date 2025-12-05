@@ -49,7 +49,7 @@ class LecteurAuthController extends Controller
         // Connecter automatiquement le lecteur
         Auth::guard('web')->login($lecteur);
 
-        return redirect()->route('auteur.login')
+        return redirect()->route('lecteur.login')
                          ->with('success', 'Inscription réussie ! Vous allez maintenant vous connecté.');
     }
 
