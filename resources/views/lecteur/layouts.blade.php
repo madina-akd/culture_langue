@@ -219,22 +219,31 @@
     
                 </ul>
             </div>
-            <div>
-                <h4 class="font-bold mb-4 text-amber-800">Nous suivre</h4>
-                <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 bg-beige-200 rounded-full flex items-center justify-center hover:bg-amber-700 hover:text-white transition text-gray-600">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-beige-200 rounded-full flex items-center justify-center hover:bg-amber-700 hover:text-white transition text-gray-600">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-beige-200 rounded-full flex items-center justify-center hover:bg-amber-700 hover:text-white transition text-gray-600">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="{{ route('a_propos') }}" class="hover:text-amber-700 transition">A propos</a>
-                    <a href="{{ route('culturecontact') }}" class="hover:text-amber-700 transition">Contact</a>
-                </div>
-            </div>
+           <div>
+    <h4 class="font-bold mb-4 text-amber-800">Nous suivre</h4>
+
+    <!-- Icônes réseaux sociaux -->
+    <div class="flex space-x-4 mb-4">
+        <a href="#" class="w-10 h-10 bg-beige-200 rounded-full flex items-center justify-center hover:bg-amber-700 hover:text-white transition text-gray-600">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a href="#" class="w-10 h-10 bg-beige-200 rounded-full flex items-center justify-center hover:bg-amber-700 hover:text-white transition text-gray-600">
+            <i class="fab fa-twitter"></i>
+        </a>
+
+        <a href="#" class="w-10 h-10 bg-beige-200 rounded-full flex items-center justify-center hover:bg-amber-700 hover:text-white transition text-gray-600">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <!-- Liens simples -->
+        <div class="flex flex-col space-y-2">
+            <a href="{{ route('a_propos') }}" class="hover:text-amber-700 transition">À propos</a>
+            <a href="{{ route('culturecontact') }}" class="hover:text-amber-700 transition">Contact</a>
+        </div>
+    </div>
+
         </div>
         <div class="border-t border-beige-300 mt-8 pt-8 text-center text-gray-500">
             <p>&copy; 2023 Promotion Culture & Langues du Bénin. Tous droits réservés.</p>
