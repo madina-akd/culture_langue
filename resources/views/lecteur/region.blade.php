@@ -212,13 +212,22 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neu
             <!-- autres images... -->
 
 <!-- Section Images 360° -->
-<section class="py-20 bg-white" id="galerie-360">
+<!-- Section Vidéo -->
+<section class="py-20 bg-white" id="galerie-video">
     <div class="max-w-7xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold mb-4 text-gray-800">Explorer le Bénin en 360°</h2>
-        <p class="text-gray-600 mb-8">Découvrez les paysages et sites touristiques du Bénin grâce aux images panoramiques interactives.</p>
-        <div id="panorama-360"></div>
+        <h2 class="text-4xl font-bold mb-4 text-gray-800">Explorer le Bénin en Vidéo</h2>
+        <p class="text-gray-600 mb-8">
+            Découvrez la rivière noire du Bénin à travers cette courte vidéo.
+        </p>
+        <div class="relative w-full rounded-2xl overflow-hidden shadow-lg" style="padding-top: 56.25%;"> <!-- ratio 16:9 -->
+            <video controls class="absolute top-0 left-0 w-full h-full object-cover rounded-2xl">
+                <source src="{{ asset('assets/videos/noire.mp4') }}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture de vidéos.
+            </video>
+        </div>
     </div>
 </section>
+
 @endsection
 
 @section('script')
@@ -238,15 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     markers.forEach(marker => { L.marker([marker.lat, marker.lng]).bindPopup(marker.title).addTo(map); });
 
-    // Panolens 360
-    const panoramaContainer = document.getElementById('panorama-360');
-    if(panoramaContainer) {
-        const panorama = new PANOLENS.ImagePanorama("https://culture-benin-production.up.railway.app/assets/images/360/benin360.jpg");
-
-        const viewer = new PANOLENS.Viewer({ container: panoramaContainer, output: 'console', autoHideInfospot: false });
-        viewer.add(panorama);
-    }
-
+    
     // Mobile menu toggle
     const mobileMenuButton = document.querySelector('.md\\:hidden');
     const navLinks = document.querySelector('.md\\:flex');
