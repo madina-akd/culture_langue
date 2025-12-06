@@ -231,8 +231,8 @@
                     <a href="#" class="w-10 h-10 bg-beige-200 rounded-full flex items-center justify-center hover:bg-amber-700 hover:text-white transition text-gray-600">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <li><a href="{{ route('a_propos') }}" class="hover:text-amber-700 transition">A propos</a></li>
-                    <li><a href="{{ route('culturecontact') }}" class="hover:text-amber-700 transition">Contact</a></li>
+                    <a href="{{ route('a_propos') }}" class="hover:text-amber-700 transition">A propos</a>
+                    <a href="{{ route('culturecontact') }}" class="hover:text-amber-700 transition">Contact</a>
                 </div>
             </div>
         </div>
